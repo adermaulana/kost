@@ -46,7 +46,7 @@
                      <div class="full">
                         <div class="center-desk">
                            <div class="logo">
-                              <a href="index.php"><img src="assets/images/logo.png" alt="#" /></a>
+                              <a href="index.php"><img src="assets/images/kost-logo.png" width="150" alt="#" /></a>
                            </div>
                         </div>
                      </div>
@@ -58,7 +58,7 @@
                         </button>
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="index.php">Home</a>
                                 </li>
                                 <li class="nav-item">
@@ -71,7 +71,7 @@
                                     <a class="nav-link" href="blog.html">Blog</a>
                                 </li> -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="kontak.php">Kontak</a>
+                                    <a class="nav-link active" href="kontak.php">Kontak</a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav ml-auto">

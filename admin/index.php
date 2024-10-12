@@ -21,7 +21,7 @@ if($_SESSION['status'] != 'login'){
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Stellar Admin</title>
+    <title>Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icons.min.css">
@@ -92,7 +92,7 @@ if($_SESSION['status'] != 'login'){
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Henry Klein</p>
+                  <p class="profile-name"><?= $_SESSION['nama_admin'] ?></p>
                   <p class="designation">Administrator</p>
                 </div>
                 <div class="icon-container">
@@ -105,91 +105,67 @@ if($_SESSION['status'] != 'login'){
               <span class="nav-link">Dashboard</span>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="index.php">
                 <span class="menu-title">Dashboard</span>
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">UI Elements</span></li>
+            <li class="nav-item nav-category"><span class="nav-link">Fitur</span></li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Basic UI Elements</span>
+                <span class="menu-title">Kamar</span>
                 <i class="icon-layers menu-icon"></i>
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="kamar.php">Lihat Kamar</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="tambahkamar.php">Tambah Kamar</a></li>
                 </ul>
               </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                <span class="menu-title">Icons</span>
+                <span class="menu-title">Pelanggan</span>
                 <i class="icon-globe menu-icon"></i>
               </a>
               <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a></li>
+                  <!-- <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a></li> -->
                 </ul>
               </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
-                <span class="menu-title">Forms</span>
+                <span class="menu-title">Pemesanan</span>
                 <i class="icon-book-open menu-icon"></i>
               </a>
               <div class="collapse" id="forms">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/forms/basic_elements.html">Form Elements</a></li>
+                  <!-- <li class="nav-item"> <a class="nav-link" href="pages/forms/basic_elements.html">Form Elements</a></li> -->
                 </ul>
               </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                <span class="menu-title">Charts</span>
+                <span class="menu-title">Riwayat Pembayaran</span>
                 <i class="icon-chart menu-icon"></i>
               </a>
               <div class="collapse" id="charts">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+                  <!-- <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li> -->
                 </ul>
               </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                <span class="menu-title">Tables</span>
+                <span class="menu-title">User</span>
                 <i class="icon-grid menu-icon"></i>
               </a>
               <div class="collapse" id="tables">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic Table</a></li>
+                  <!-- <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic Table</a></li> -->
                 </ul>
               </div>
-            </li>
-            <li class="nav-item nav-category"><span class="nav-link">Extra Pages</span></li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <span class="menu-title">User Pages</span>
-                <i class="icon-disc menu-icon"></i>
-              </a>
-              <div class="collapse" id="auth">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item nav-category"><span class="nav-link">Help</span></li>
-            <li class="nav-item">
-              <a class="nav-link" href="../../docs/documentation.html" target="_blank">
-                <span class="menu-title">Documentation</span>
-                <i class="icon-folder-alt menu-icon"></i>
-              </a>
             </li>
           </ul>
         </nav>

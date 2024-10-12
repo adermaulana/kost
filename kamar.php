@@ -1,3 +1,31 @@
+<?php
+
+   include 'koneksi.php';
+
+   session_start();
+
+
+   if(isset($_SESSION['email_admin'])) {
+      $isLoggedIn = true;
+      $namaAdmin = $_SESSION['nama_admin']; // Ambil nama user dari session
+   } else if(isset($_SESSION['email_pelanggan'])) {
+      $isLoggedIn = true;
+      $namaPelanggan = $_SESSION['nama_pelanggan']; // Ambil nama user dari session
+   } 
+
+   else {
+         $isLoggedIn = false;
+   }
+
+
+   if (isset($_POST['pesan'])) {
+      
+      header("location:kamar.php");
+   
+   }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -46,7 +74,7 @@
                      <div class="full">
                         <div class="center-desk">
                            <div class="logo">
-                              <a href="index.php"><img src="assets/images/logo.png" alt="#" /></a>
+                           <a href="index.php"><img src="assets/images/kost-logo.png" width="150" alt="#" /></a>
                            </div>
                         </div>
                      </div>
@@ -58,11 +86,11 @@
                         </button>
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active">
+                                <li class="nav-item ">
                                     <a class="nav-link" href="index.php">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="kamar.php">Kamar</a>
+                                    <a class="nav-link active" href="kamar.php">Kamar</a>
                                 </li>
                                 <!-- <li class="nav-item">
                                     <a class="nav-link" href="gallery.html">Gallery</a>
@@ -93,7 +121,7 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="title">
-                     <h2>Our Room</h2>
+                     <h2>Daftar Kamar</h2>
                   </div>
                </div>
             </div>
@@ -105,77 +133,32 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage">
-                     <p  class="margin_0">Lorem Ipsum available, but the majority have suffered </p>
+                     <p  class="margin_0">Berikut Daftar Kamar yang Tersedia</p>
                   </div>
                </div>
             </div>
             <div class="row">
+            <?php
+               $tampil = mysqli_query($koneksi, "SELECT * FROM kamar ORDER BY id DESC");
+               while($data = mysqli_fetch_array($tampil)):
+            ?>
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
-                        <figure><img src="assets/images/room1.jpg" alt="#"/></figure>
+                        <figure><img src="<?= $data['foto_kamar']; ?>" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                        <h3><?= $data['id_kamar'] ?></h3>
+                        <p><?= $data['keterangan'] ?></p>
+                        <p> 
+                        Rp. <?= number_format($data['harga'], 0, ',', '.') ?>
+                        </p>
                      </div>
                   </div>
                </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room2.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room3.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room4.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room5.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room6.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
+            <?php
+               endwhile; 
+            ?>                  
             </div>
          </div>
       </div>

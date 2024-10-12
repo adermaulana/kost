@@ -1,3 +1,30 @@
+<?php
+
+include 'koneksi.php';
+
+session_start();
+
+
+  if(isset($_SESSION['email_admin'])) {
+    $isLoggedIn = true;
+    $namaAdmin = $_SESSION['nama_admin']; // Ambil nama user dari session
+  } else if(isset($_SESSION['email_pelanggan'])) {
+    $isLoggedIn = true;
+    $namaPelanggan = $_SESSION['nama_pelanggan']; // Ambil nama user dari session
+  } 
+
+  else {
+      $isLoggedIn = false;
+  }
+
+
+  if (isset($_POST['pesan'])) {
+   
+   header("location:kamar.php");
+  
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -28,6 +55,16 @@
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+      <style>
+
+      .carousel-item img {
+      width: 100%;        /* Set the width to 100% of the container */
+      height: auto;      /* Maintain aspect ratio */
+      object-fit: cover; /* Ensures the image covers the container without distortion */
+      }
+
+      </style>
    </head>
    <!-- body -->
    <body class="main-layout">
@@ -46,7 +83,7 @@
                      <div class="full">
                         <div class="center-desk">
                            <div class="logo">
-                              <a href="index.php"><img src="assets/images/logo.png" alt="#" /></a>
+                              <a href="index.php"><img src="assets/images/kost-logo.png" width="150" alt="#" /></a>
                            </div>
                         </div>
                      </div>
@@ -98,15 +135,15 @@
             </ol>
             <div class="carousel-inner">
                <div class="carousel-item active">
-                  <img class="first-slide" src="assets/images/banner1.jpg" alt="First slide">
+                  <img class="first-slide" src="assets/images/kost1.webp" alt="First slide">
                   <div class="container">
                   </div>
                </div>
                <div class="carousel-item">
-                  <img class="second-slide" src="assets/images/banner2.jpg" alt="Second slide">
+                  <img class="second-slide" src="assets/images/kost2.webp" alt="Second slide">
                </div>
                <div class="carousel-item">
-                  <img class="third-slide" src="assets/images/banner3.jpg" alt="Third slide">
+                  <img class="third-slide" src="assets/images/kost3.webp" alt="Third slide">
                </div>
             </div>
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
@@ -123,21 +160,11 @@
                <div class="row">
                   <div class="col-md-5">
                      <div class="book_room">
-                        <h1>Book a Room Online</h1>
-                        <form class="book_now">
+                        <h1>Pesan Kamar Sekarang Juga!</h1>
+                        <form class="book_now" method="POST">
                            <div class="row">
                               <div class="col-md-12">
-                                 <span>Arrival</span>
-                                 <img class="date_cua" src="assets/images/date.png">
-                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
-                              </div>
-                              <div class="col-md-12">
-                                 <span>Departure</span>
-                                 <img class="date_cua" src="assets/images/date.png">
-                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
-                              </div>
-                              <div class="col-md-12">
-                                 <button class="book_btn">Book Now</button>
+                                 <button class="book_btn" name="pesan">Pesan</button>
                               </div>
                            </div>
                         </form>
@@ -154,125 +181,37 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage">
-                     <h2>Our Room</h2>
-                     <p>Lorem Ipsum available, but the majority have suffered </p>
+                     <h2>Kamar Termurah</h2>
+                     <p>Pesan sebelum kehabisan!</p>
                   </div>
                </div>
             </div>
             <div class="row">
+            <?php
+               $tampil = mysqli_query($koneksi, "SELECT * FROM kamar ORDER BY harga ASC");
+               while($data = mysqli_fetch_array($tampil)):
+            ?>
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
-                        <figure><img src="assets/images/room1.jpg" alt="#"/></figure>
+                        <figure><img src="<?= $data['foto_kamar']; ?>" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                        <h3><?= $data['id_kamar'] ?></h3>
+                        <p><?= $data['keterangan'] ?></p>
+                        <p> 
+                        Rp. <?= number_format($data['harga'], 0, ',', '.') ?>
+                        </p>
                      </div>
                   </div>
                </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room2.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room3.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room4.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room5.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-6">
-                  <div id="serv_hover"  class="room">
-                     <div class="room_img">
-                        <figure><img src="assets/images/room6.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="bed_room">
-                        <h3>Bed Room</h3>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                     </div>
-                  </div>
-               </div>
+            <?php
+               endwhile; 
+            ?>                  
             </div>
          </div>
       </div>
 
-      <!--  contact -->
-      <div class="contact">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h2>Contact Us</h2>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-6">
-                  <form id="request" class="main_form">
-                     <div class="row">
-                        <div class="col-md-12 ">
-                           <input class="contactus" placeholder="Name" type="type" name="Name"> 
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Email" type="type" name="Email"> 
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
-                        </div>
-                        <div class="col-md-12">
-                           <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
-                        </div>
-                        <div class="col-md-12">
-                           <button class="send_btn">Send</button>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-               <div class="col-md-6">
-                  <div class="map_main">
-                     <div class="map-responsive">
-                        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="400" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- end contact -->
       <!--  footer -->
       <footer>
          <div class="footer">
