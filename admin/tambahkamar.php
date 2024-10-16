@@ -179,7 +179,8 @@ if (isset($_POST['simpan'])) {
               </a>
               <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
-                  <!-- <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a></li> -->
+                <li class="nav-item"> <a class="nav-link" href="pelanggan.php">Lihat Pelanggan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="tambahpelanggan.php">Tambah Pelanggan</a></li>
                 </ul>
               </div>
             </li>

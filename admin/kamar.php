@@ -13,6 +13,18 @@ if($_SESSION['status'] != 'login'){
 
 }
 
+if(isset($_GET['hal']) == "hapus"){
+
+  $hapus = mysqli_query($koneksi, "DELETE FROM kamar WHERE id = '$_GET[id]'");
+
+  if($hapus){
+      echo "<script>
+      alert('Hapus data sukses!');
+      document.location='kamar.php';
+      </script>";
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -133,7 +145,8 @@ if($_SESSION['status'] != 'login'){
               </a>
               <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
-                  <!-- <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a></li> -->
+                <li class="nav-item"> <a class="nav-link" href="pelanggan.php">Lihat Pelanggan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="tambahpelanggan.php">Tambah Pelanggan</a></li>
                 </ul>
               </div>
             </li>
@@ -213,8 +226,8 @@ if($_SESSION['status'] != 'login'){
                             <td><?= $data['status'] ?></td>
                             <td>
                                 <a class="badge badge-success text-decoration-none" href="">Detail</a>
-                                <a class="badge badge-warning text-decoration-none" href="">Edit</a>
-                                <a class="badge badge-danger text-decoration-none" href="">Hapus</a>
+                                <a class="badge badge-warning text-decoration-none" href="editkamar.php?hal=edit&id=<?= $data['id']?>">Edit</a>
+                                <a class="badge badge-danger text-decoration-none" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data?')" href="kamar.php?hal=hapus&id=<?= $data['id']?>">Hapus</a>
                             </td>
                           </tr>
                           <?php

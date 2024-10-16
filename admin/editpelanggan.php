@@ -13,6 +13,46 @@ if($_SESSION['status'] != 'login'){
 
 }
 
+if(isset($_GET['hal'])){
+    if($_GET['hal'] == "edit"){
+        $tampil = mysqli_query($koneksi, "SELECT * FROM pelanggan WHERE id = '$_GET[id]'");
+        $data = mysqli_fetch_array($tampil);
+        if($data){
+            $id = $data['id'];
+            $nama = $data['nama'];
+            $username = $data['username'];
+            $alamat = $data['alamat'];
+            $telepon = $data['telepon'];
+            $status = $data['status'];
+        }
+    }
+}
+
+//Perintah Mengubah Data
+if (isset($_POST['simpan'])) {
+    // Update data pelanggan
+    $simpan = mysqli_query($koneksi, "UPDATE pelanggan SET
+                                        nama = '$_POST[nama]',
+                                        username = '$_POST[username]',
+                                        alamat = '$_POST[alamat]',
+                                        telepon = '$_POST[telepon]',
+                                        status = '$_POST[status]' 
+                                      WHERE id = '$_GET[id]'");
+
+    if ($simpan) {
+        echo "<script>
+                alert('Edit data sukses!');
+                document.location='pelanggan.php';
+              </script>";
+    } else {
+        echo "<script>
+                alert('Edit data Gagal!');
+                document.location='pelanggan.php';
+              </script>";
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +80,7 @@ if($_SESSION['status'] != 'login'){
     <link rel="stylesheet" href="assets/css/vertical-light-layout/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.png" />
+
   </head>
   <body>
     <div class="container-scroller">
@@ -130,8 +171,8 @@ if($_SESSION['status'] != 'login'){
               </a>
               <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pelanggan.php">Lihat Pelanggan</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="tambahpelanggan.php">Tambah Pelanggan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pelanggan.php">Lihat Pelanggan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="tambahpelanggan.php">Tambah Pelanggan</a></li>
                 </ul>
               </div>
             </li>
@@ -173,93 +214,46 @@ if($_SESSION['status'] != 'login'){
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-          <div class="row">
-              <div class="col-md-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row report-inner-cards-wrapper">
-                      <div class=" col-md -6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">Pendapatan</span>
-                          <h4>Rp. 350000</h4>
-                          <span class="report-count"> 2 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-success">
-                          <i class="icon-rocket"></i>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">Total Pelanggan</span>
-                          <h4>26</h4>
-                          <span class="report-count"> 5 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-warning">
-                          <i class="icon-globe-alt"></i>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">Total Kamar</span>
-                          <h4>25</h4>
-                          <span class="report-count"> 9 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-primary">
-                          <i class="icon-diamond"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="page-header">
+              <h3 class="page-title">Tambah Pelanggan</h3>
             </div>
-
-
-            <!-- Quick Action Toolbar Ends-->
             <div class="row">
-              <div class="col-md-12 grid-margin stretch-card">
+              <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Data Pelanggan</h4>
-                    </div>
-                    <div class="table-responsive border rounded p-1">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th class="font-weight-bold">No</th>
-                            <th class="font-weight-bold">No Kamar</th>
-                            <th class="font-weight-bold">Nama</th>
-                            <th class="font-weight-bold">Alamat</th>
-                            <th class="font-weight-bold">No Hp</th>
-                            <th class="font-weight-bold">Durasi</th>
-                            <th class="font-weight-bold">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="assets/images/faces/face1.jpg" alt="profile image"> Katie Holmes
-                            </td>
-                            <td>001</td>
-                            <td><img src="assets/images/dashboard/alipay.png" alt="alipay" class="gateway-icon me-2"> alipay</td>
-                            <td>Jalan</td>
-                            <td>0843</td>
-                            <td>1 Tahun</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                      <div class="form-group">
+                        <label for="id_kamar">Nama Pelanggan</label>
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?= $nama ?>" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?= $username ?>" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Alamat</label>
+                        <textarea class="form-control" id="alamat" name="alamat" rows="4" required><?= $alamat ?></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="telepon">No Hp</label>
+                        <input type="text" class="form-control" name="telepon" id="telepon" placeholder="No Hp" value="<?= $telepon ?>" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleSelectGender">Status</label>
+                        <select class="form-select" name="status" id="status" required>
+                          <option value="Aktif">Aktif</option>
+                          <option value="Tidak Aktif">Tidak Aktif</option>
+                        </select>
+                      </div>
+                      <button type="submit" name="simpan" class="btn btn-primary me-2">Submit</button>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          <!-- partial:../../partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 Stellar. All rights reserved. <a href="#"> Terms of use</a><a href="#">Privacy Policy</a></span>
@@ -296,6 +290,7 @@ if($_SESSION['status'] != 'login'){
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/file-upload.js"></script>
     <!-- End custom js for this page -->
   </body>
 </html>
