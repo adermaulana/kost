@@ -5,10 +5,10 @@ include 'koneksi.php';
 session_start();
 
 
-  if(isset($_SESSION['email_admin'])) {
+  if(isset($_SESSION['username_admin'])) {
     $isLoggedIn = true;
     $namaAdmin = $_SESSION['nama_admin']; // Ambil nama user dari session
-  } else if(isset($_SESSION['email_pelanggan'])) {
+  } else if(isset($_SESSION['username_pelanggan'])) {
     $isLoggedIn = true;
     $namaPelanggan = $_SESSION['nama_pelanggan']; // Ambil nama user dari session
   } 
