@@ -154,6 +154,7 @@
                         <p> 
                         Rp. <?= number_format($data['harga'], 0, ',', '.') ?>
                         </p>
+                        <a href="pesan.php?id_kamar=<?= $data['id_kamar']; ?>" class="btn btn-primary mt-3">Pesan</a>
                      </div>
                   </div>
                </div>
