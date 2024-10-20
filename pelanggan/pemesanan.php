@@ -135,83 +135,50 @@ if($_SESSION['status'] != 'login' || !isset($_SESSION['username_pelanggan'])){
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-            <div class="row">
-              <div class="col-md-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row report-inner-cards-wrapper">
-                      <div class=" col-md -6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">Pendapatan</span>
-                          <h4>Rp. 350000</h4>
-                          <span class="report-count"> 2 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-success">
-                          <i class="icon-rocket"></i>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">Total Pelanggan</span>
-                          <h4>26</h4>
-                          <span class="report-count"> 5 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-warning">
-                          <i class="icon-globe-alt"></i>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">Total Kamar</span>
-                          <h4>25</h4>
-                          <span class="report-count"> 9 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-primary">
-                          <i class="icon-diamond"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="page-header">
+              <h3 class="page-title"> Data Pemesanan</h3>
             </div>
-
-
-            <!-- Quick Action Toolbar Ends-->
             <div class="row">
-              <div class="col-md-12 grid-margin stretch-card">
+              <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Data Pelanggan</h4>
-                    </div>
-                    <div class="table-responsive border rounded p-1">
-                      <table class="table">
+                    <div class="table-responsive">
+                      <table class="table display" id="example" style="width:100%">
                         <thead>
                           <tr>
-                            <th class="font-weight-bold">No</th>
-                            <th class="font-weight-bold">No Kamar</th>
-                            <th class="font-weight-bold">Nama</th>
-                            <th class="font-weight-bold">Alamat</th>
-                            <th class="font-weight-bold">No Hp</th>
-                            <th class="font-weight-bold">Durasi</th>
-                            <th class="font-weight-bold">Status</th>
+                            <th>No</th>
+                            <th>Id Kamar</th>
+                            <th>No Kamar</th>
+                            <th>Harga</th>
+                            <th>Foto</th>
+                            <th>Keterangan</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
+                        <?php
+                            $no = 1;
+                            $tampil = mysqli_query($koneksi, "SELECT * FROM kamar ORDER BY id DESC");
+                            while($data = mysqli_fetch_array($tampil)):
+                        ?>
                           <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= $data['id_kamar'] ?></td>
+                            <td><?= $data['nomor_kamar'] ?></td>
+                            <td>Rp. <?= number_format($data['harga'], 0, ',', '.') ?></td>
+                            <td><img src="../<?= $data['foto_kamar']; ?>" alt=""></td>
+                            <td><?= $data['keterangan'] ?></td>
+                            <td><?= $data['status'] ?></td>
                             <td>
-                              <img class="img-sm rounded-circle" src="assets/images/faces/face1.jpg" alt="profile image"> Katie Holmes
-                            </td>
-                            <td>001</td>
-                            <td><img src="assets/images/dashboard/alipay.png" alt="alipay" class="gateway-icon me-2"> alipay</td>
-                            <td>Jalan</td>
-                            <td>0843</td>
-                            <td>1 Tahun</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
+                                <a class="badge badge-success text-decoration-none" href="">Detail</a>
+                                <a class="badge badge-warning text-decoration-none" href="editkamar.php?hal=edit&id=<?= $data['id']?>">Edit</a>
+                                <a class="badge badge-danger text-decoration-none" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data?')" href="kamar.php?hal=hapus&id=<?= $data['id']?>">Hapus</a>
                             </td>
                           </tr>
+                          <?php
+                            endwhile; 
+                          ?>
                         </tbody>
                       </table>
                     </div>
@@ -221,7 +188,7 @@ if($_SESSION['status'] != 'login' || !isset($_SESSION['username_pelanggan'])){
             </div>
           </div>
           <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          <!-- partial:../../partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 Stellar. All rights reserved. <a href="#"> Terms of use</a><a href="#">Privacy Policy</a></span>

@@ -113,7 +113,15 @@ session_start();
                             </ul>
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
+                                 <?php if($isLoggedIn): ?>
+                                       <?php if(isset($_SESSION['username_admin'])): ?>
+                                          <a href="admin" class="nav-link">Dashboard</a>
+                                       <?php else: ?>
+                                          <a href="pelanggan" class="nav-link">Dashboard</a>
+                                       <?php endif; ?>
+                                 <?php else: ?>
                                     <a class="nav-link" href="login.php">Login</a>
+                                 <?php endif; ?>
                                 </li>
                             </ul>
                         </div>
